@@ -116,8 +116,7 @@ namespace ChallengesWithTestsMark8
         {
             double sum = 0;
             double count = 0;
-            double Odd = 0;
-            if (numbers == null || numbers.Length == 0)
+            if (numbers == null)
             {
                 return 0;
             }

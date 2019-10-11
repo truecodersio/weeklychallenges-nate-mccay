@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace ChallengesWithTestsMark8
 {
     public class ChallengesSet05
@@ -12,99 +12,107 @@ namespace ChallengesWithTestsMark8
 
         public void ChangeNamesOfBusinessesWithNoRevenueTo_CLOSED(Business[] businesses)
         {
-            for (int i = 0; i < businesses.Length; i++)
+            foreach (Business business in businesses)
             {
-                if (businesses[i].TotalRevenue == 0)
+                if (business.TotalRevenue == 0)
                 {
-                    businesses[i].Name = "CLOSED";
+                    business.Name = "CLOSED";
                 }
             }
         }
 
         public bool IsAscendingOrder(int[] numbers)
         {
-            if (numbers == null)
+            if (numbers == null || numbers.Length == 0)
+            {
                 return false;
-
+            }
             for (int i = 1; i < numbers.Length; i++)
             {
-                if (numbers[i] < numbers[i - 1])
+                if (numbers[i - 1] > numbers[i])
                 {
                     return false;
                 }
             }
-
             return true;
         }
 
         public int SumElementsThatFollowAnEven(int[] numbers)
         {
-            int sum = 0;
-
-            for (int i = 1; i < numbers.Length; i++)
+            var sum = 0;
+            if(numbers == null)
             {
-                if (numbers[i - 1] % 2 == 0)
+                return 0;
+            }
+            for(int i = 0; i < numbers.Length-1;i++)
+            {
+                if (numbers[i] % 2 ==0)
                 {
-                    sum += numbers[i];
+                    sum +=numbers[1 + i];
                 }
             }
-
             return sum;
         }
 
         public string TurnWordsIntoSentence(string[] words)
         {
-            if (words == null || words.Length == 0)
+            if(words == null)
             {
                 return "";
             }
-
-            string sentence = "";
-
-            foreach (string word in words)
+            string s = "";
+            foreach(string word in words)
             {
                 if (word.Trim().Length > 0)
                 {
-                    sentence += word.Trim() + " ";
+                    s += word.Trim() + " ";
                 }
             }
-
-            if (sentence.Length == 0)
+            if (s.Length == 0)
             {
                 return "";
             }
-
-            sentence = sentence.Substring(0, sentence.Length - 1);
-            sentence += ".";
-            return sentence;
+            s = s.Substring(0, s.Length - 1);
+            s += ".";
+            return s;
         }
 
         public double[] GetEveryFourthElement(List<double> elements)
         {
-            List<double> everyFourth = new List<double>();
-
-            for (int i = 3; i < elements.Count; i += 4)
+            
+            List<double> forth = new List<double>();
+            if (elements == null)
             {
-                everyFourth.Add(elements[i]);
+                return forth.ToArray();
             }
-
-            return everyFourth.ToArray();
-        }
-
-        public bool TwoDifferentElementsInArrayCanSumToTargetNumber(int[] nums, int targetNumber)
-        {
-            for (int i = 0; i < nums.Length; i++)
+            for (int i = 0;i < elements.Count;i++)
             {
-                for (int k = i + 1; k < nums.Length; k++)
+                if(elements[i] % 4 == 0)
                 {
-                    if (nums[i] + nums[k] == targetNumber)
-                    {
-                        return true;
-                    }
+                    forth.Add(elements[i]);
                 }
             }
-
-            return false;
+            return forth.ToArray();
         }
-    }
-}
+        
+        public bool TwoDifferentElementsInArrayCanSumToTargetNumber(int[] nums, int targetNumber)
+        {
+            for(int i = 0; i<nums.Length;i++)
+            {
+                for(int j = 0; j<nums.Length;j++)
+                {
+                    if (i != j)
+                    {
+                        int sum = nums[i] + nums[j];
+                        if (sum == targetNumber)
+                        {
+                            return true;                   
+                        }                                  
+                    }                                      
+                }                                          
+            }                                              
+            return false;                                  
+        }                                                  
+    }                                                      
+}                                                          
+                                                           
